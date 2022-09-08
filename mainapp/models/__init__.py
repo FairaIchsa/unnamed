@@ -1,1 +1,1 @@
-import event_models
+from mainapp.models import event_models
