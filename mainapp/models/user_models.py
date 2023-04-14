@@ -50,6 +50,8 @@ class User(AbstractUser):
     name = models.CharField(max_length=255, blank=True, null=True, default=None)
     phone = models.CharField(max_length=15, blank=True, null=True, default=None)
     gender = models.CharField(max_length=15, choices=genders, blank=True, null=True, default=None)
+    birthday = models.DateField(null=True, blank=True)
+    following = models.ManyToManyField('User', related_name='followed', blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
