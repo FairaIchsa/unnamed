@@ -1,3 +1,4 @@
 venv
 unnamed/secret_settings.py
 .idea
+**/__pycache__/
