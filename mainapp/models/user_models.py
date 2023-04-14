@@ -37,12 +37,19 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    genders = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+
     username = None
     first_name = None
     last_name = None
     email = models.EmailField(unique=True)
-    name = models.CharField(max_length=255, blank=True, null=True)
-    phone = models.CharField(max_length=15, blank=True, null=True)
+    image = models.URLField(max_length=255, blank=True, null=True, default=None)
+    name = models.CharField(max_length=255, blank=True, null=True, default=None)
+    phone = models.CharField(max_length=15, blank=True, null=True, default=None)
+    gender = models.CharField(max_length=15, choices=genders, blank=True, null=True, default=None)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
