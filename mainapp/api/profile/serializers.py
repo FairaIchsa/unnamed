@@ -1,7 +1,6 @@
 from django.utils import timezone
 from rest_framework import serializers
 from mainapp.models.user_models import User
-from ..event.serializers import EventListSerializer
 
 
 class UserListSerializer(serializers.ModelSerializer):
@@ -11,6 +10,8 @@ class UserListSerializer(serializers.ModelSerializer):
 
 
 class UserRetrieveSerializer(serializers.ModelSerializer):
+    from ..event.serializers import EventListSerializer
+
     class Meta:
         model = User
         fields = ['id', 'image', 'name', 'gender', 'age', 'following', 'followed', 'host_of', 'participant_of']
