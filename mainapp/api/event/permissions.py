@@ -1,7 +1,7 @@
 from rest_framework import permissions
 
 
-class EventEditPermission(permissions.BasePermission):
+class IsHostOrReadOnly(permissions.BasePermission):
     message = 'Only the host can edit events.'
 
     def has_object_permission(self, request, view, obj):
