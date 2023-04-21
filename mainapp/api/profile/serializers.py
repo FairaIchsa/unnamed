@@ -16,16 +16,12 @@ class UserRetrieveSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'image', 'name', 'gender', 'age', 'following', 'followed', 'host_of', 'participant_of']
 
-    gender = serializers.SerializerMethodField()
+    gender = serializers.CharField(source='get_gender_display')
     age = serializers.SerializerMethodField()
     following = UserListSerializer(many=True)
     followed = UserListSerializer(many=True)
     host_of = EventListSerializer(many=True)
     participant_of = EventListSerializer(many=True)
-
-    @staticmethod
-    def get_gender(user):
-        return user.get_gender_display()
 
     @staticmethod
     def get_age(user):
