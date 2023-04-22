@@ -1,6 +1,5 @@
 from django.urls import path
-
-from .api_views import EventCreateUpdateViewSet, EventListAPIView, EventRetrieveAPIView, EventDestroyAPIView
+from .api_views import EventCreateUpdateViewSet, EventListAPIView, EventRetrieveAPIView, EventDestroyAPIView\
 
 app_name = 'event'
 
