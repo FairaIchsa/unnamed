@@ -33,6 +33,14 @@ class UserCreateSerializer(serializers.ModelSerializer):
         return user
 
 
+class UserFullDataRetrieveSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'email', 'name', 'birthday', 'image', 'phone', 'gender']
+
+    gender = serializers.CharField(source='get_gender_display')
+
+
 class UserDataUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

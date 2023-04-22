@@ -1,17 +1,27 @@
 from rest_framework import views, generics, permissions, status
 from rest_framework.response import Response
-from .serializers import UserCreateSerializer, UserDataUpdateSerializer, UserPasswordUpdateSerializer
+from .serializers import UserCreateSerializer, UserDataUpdateSerializer, \
+    UserPasswordUpdateSerializer, UserFullDataRetrieveSerializer
 
 
 class UserCreateAPIView(generics.CreateAPIView):
     serializer_class = UserCreateSerializer
 
 
-class UserDataRetrieveAPIView(generics.RetrieveAPIView):
-    from ..profile.serializers import UserListSerializer as UserDataRetrieveSerializer
+class UserShortDataRetrieveAPIView(generics.RetrieveAPIView):
+    from ..profile.serializers import UserListSerializer as UserShortDataRetrieveSerializer
 
     permission_classes = [permissions.IsAuthenticated]
-    serializer_class = UserDataRetrieveSerializer
+    serializer_class = UserShortDataRetrieveSerializer
+
+    def get_object(self):
+        user = self.request.user
+        return user
+
+
+class UserFullDataRetrieveAPIView(generics.RetrieveAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = UserFullDataRetrieveSerializer
 
     def get_object(self):
         user = self.request.user
