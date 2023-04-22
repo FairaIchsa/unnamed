@@ -46,15 +46,15 @@ class User(AbstractUser):
     first_name = None
     last_name = None
     email = models.EmailField(unique=True)
-    name = models.CharField(max_length=255)
-    birthday = models.DateField()
+    name = models.CharField(max_length=255, blank=True, null=True, default=None)
+    birthday = models.DateField(blank=True, null=True, default=None)
     image = models.URLField(max_length=255, blank=True, null=True, default=None)
     phone = models.CharField(max_length=15, blank=True, null=True, default=None)
     gender = models.CharField(max_length=15, choices=genders, blank=True, null=True, default=None)
     following = models.ManyToManyField('User', related_name='followed', blank=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'birthday']
+    REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 
