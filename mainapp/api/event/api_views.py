@@ -1,11 +1,11 @@
-from rest_framework import generics, mixins, viewsets
+from rest_framework import generics, mixins, viewsets, permissions
 from .serializers import EventCreateUpdateSerializer, EventListSerializer, EventRetrieveSerializer
 from .permissions import IsHostOrReadOnly
 from mainapp.models.event_models import Event
 
 
 class EventCreateUpdateViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.UpdateModelMixin):
-    permission_classes = [IsHostOrReadOnly]
+    permission_classes = [IsHostOrReadOnly, permissions.IsAuthenticated]
     queryset = Event.objects.all()
     serializer_class = EventCreateUpdateSerializer
 
@@ -31,5 +31,5 @@ class EventRetrieveAPIView(generics.RetrieveAPIView):
 
 
 class EventDestroyAPIView(generics.DestroyAPIView):
-    permission_classes = [IsHostOrReadOnly]
+    permission_classes = [IsHostOrReadOnly, permissions.IsAuthenticated]
     queryset = Event.objects.all()
