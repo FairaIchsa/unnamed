@@ -16,7 +16,7 @@ class Category(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length=255)
-    category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, null=True, blank=True, on_delete=models.SET_NULL)
     host = models.ForeignKey(User, related_name='host_of', null=True, on_delete=models.SET_NULL)
     participants = models.ManyToManyField(User, related_name='participant_of', blank=True)
     location = models.CharField(max_length=255)
