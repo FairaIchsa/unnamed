@@ -16,7 +16,7 @@ class EventListSerializer(serializers.ModelSerializer):
 
 
 class EventRetrieveSerializer(serializers.ModelSerializer):
-    from ..profile.serializers import UserListSerializer
+    from api.user.serializers import UserListSerializer
 
     class Meta:
         depth = 1

@@ -7,6 +7,7 @@ urlpatterns = [
     path('create', EventCreateUpdateViewSet.as_view({'post': 'create'}), name='create'),
     path('', EventListAPIView.as_view(), name='all'),
     path('<int:pk>', EventRetrieveAPIView.as_view(), name='by-id'),
-    path('<int:pk>/update', EventCreateUpdateViewSet.as_view({'put': 'update'}), name='update'),
+    path('<int:pk>/update', EventCreateUpdateViewSet.as_view({'put': 'update',
+                                                              'patch': 'partial_update'}), name='update'),
     path('<int:pk>/delete', EventDestroyAPIView.as_view(), name='delete'),
 ]

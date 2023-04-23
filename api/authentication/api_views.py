@@ -9,7 +9,7 @@ class UserCreateAPIView(generics.CreateAPIView):
 
 
 class UserShortDataRetrieveAPIView(generics.RetrieveAPIView):
-    from ..profile.serializers import UserListSerializer as UserShortDataRetrieveSerializer
+    from api.user.serializers import UserListSerializer as UserShortDataRetrieveSerializer
 
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = UserShortDataRetrieveSerializer

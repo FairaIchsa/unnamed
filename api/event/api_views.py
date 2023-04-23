@@ -1,7 +1,7 @@
 from rest_framework import generics, mixins, viewsets, permissions
+from mainapp.models.event_models import Event
 from .serializers import EventCreateUpdateSerializer, EventListSerializer, EventRetrieveSerializer
 from .permissions import IsHostOrReadOnly
-from mainapp.models.event_models import Event
 
 
 class EventCreateUpdateViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.UpdateModelMixin):

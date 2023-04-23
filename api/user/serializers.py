@@ -10,7 +10,7 @@ class UserListSerializer(serializers.ModelSerializer):
 
 
 class UserRetrieveSerializer(serializers.ModelSerializer):
-    from ..event.serializers import EventListSerializer
+    from api.event.serializers import EventListSerializer
 
     class Meta:
         model = User
