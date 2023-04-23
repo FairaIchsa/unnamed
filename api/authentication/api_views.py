@@ -44,9 +44,12 @@ class UserPasswordUpdateAPIView(views.APIView):
         user = self.request.user
         return user
 
+    def get_serializer(self, *args, **kwargs):
+        return UserPasswordUpdateSerializer(*args, **kwargs)
+
     def put(self, request):
         user = self.get_object()
-        serializer = UserPasswordUpdateSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
 
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
