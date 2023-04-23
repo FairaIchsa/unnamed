@@ -1,7 +1,10 @@
 from django.urls import path
-from .api_views import (CookieTokenObtainPairView, CookieTokenRefreshView, UserCreateAPIView,
+from .api_views import (CookieTokenObtainPairView, CookieTokenRefreshView,
+                        UserCreateAPIView,
                         UserShortDataRetrieveAPIView, UserFullDataRetrieveAPIView, UserDataUpdateAPIVIew,
-                        UserPasswordUpdateAPIView)
+                        UserPasswordUpdateAPIView,
+                        # LogInAPIView, RefreshTokenAPIVIew
+                        )
 
 
 app_name = 'auth'

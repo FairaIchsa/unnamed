@@ -1,3 +1,4 @@
+from django.http import parse_cookie
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer
 from rest_framework_simplejwt.exceptions import InvalidToken
@@ -21,11 +22,20 @@ class CustomChoiceField(serializers.ChoiceField):
         self.fail('invalid_choice', input=data)
 
 
+class LogInSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+    password = serializers.CharField(required=True)
+
+
 class CookieTokenRefreshSerializer(TokenRefreshSerializer):
     refresh = None
 
     def validate(self, attrs):
         attrs['refresh'] = self.context['request'].COOKIES.get('refresh')
+        if not attrs['refresh']:
+            cookie = self.context['request'].headers.get('Set-Cookie')
+            if cookie:
+                attrs['refresh'] = parse_cookie(cookie)['refresh']
         if attrs['refresh']:
             return super().validate(attrs)
         else:
