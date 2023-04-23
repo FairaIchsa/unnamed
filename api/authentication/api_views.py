@@ -1,7 +1,30 @@
 from rest_framework import views, generics, permissions, status
 from rest_framework.response import Response
-from .serializers import UserCreateSerializer, UserDataUpdateSerializer, \
-    UserPasswordUpdateSerializer, UserFullDataRetrieveSerializer
+from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
+from unnamed import settings
+from .serializers import (CookieTokenRefreshSerializer, UserCreateSerializer, UserDataUpdateSerializer,
+                          UserPasswordUpdateSerializer, UserFullDataRetrieveSerializer)
+
+
+def set_cookie(response):
+    if response.data.get('refresh'):
+        response.set_cookie(key='refresh', value=response.data['refresh'],
+                            max_age=settings.SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'],
+                            httponly=settings.SIMPLE_JWT['HTTP_ONLY'])
+        del response.data['refresh']
+
+
+class CookieTokenObtainPairView(TokenObtainPairView):
+    def finalize_response(self, request, response, *args, **kwargs):
+        set_cookie(response)
+        return super().finalize_response(request, response, *args, **kwargs)
+
+
+class CookieTokenRefreshView(TokenRefreshView):
+    def finalize_response(self, request, response, *args, **kwargs):
+        set_cookie(response)
+        return super().finalize_response(request, response, *args, **kwargs)
+    serializer_class = CookieTokenRefreshSerializer
 
 
 class UserCreateAPIView(generics.CreateAPIView):
