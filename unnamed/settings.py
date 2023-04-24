@@ -156,4 +156,5 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=14),
     "AUTH_HEADER_TYPES": ("JWT", ),
+    "ROTATE_REFRESH_TOKENS": True,
 }

@@ -17,11 +17,11 @@ class UserAdminConfig(UserAdmin):
     list_display = ('email', 'name', 'is_staff')
     ordering = ('-date_joined',)
     fieldsets = (
-        (None, {'fields': ('email', 'name', 'password')}),
+        (None, {'fields': ('image', 'email', 'name', 'birthday', 'gender', 'password')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (
-        (None, {'fields': ('email', 'name', 'password1', 'password2')}),
+        (None, {'fields': ('image', 'email', 'name', 'birthday', 'gender', 'password1', 'password2')}),
         ('Permissions', {'fields': ('is_staff',)}),
     )
 
