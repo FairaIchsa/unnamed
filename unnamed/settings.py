@@ -144,17 +144,9 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://127.0.0.1:3000',
 ]
 
-# CSRF_COOKIE_SECURE = True
-# CSRF_COOKIE_HTTP_ONLY = True
-CSRF_TRUSTED_ORIGINS = [
-    'http://localhost:3000',
-]
-# CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
-# SESSION_COOKIE_SECURE = True
-# CSRF_COOKIE_SAMESITE = "Lax"
-# SESSION_COOKIE_SAMESITE = "Lax"
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
