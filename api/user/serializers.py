@@ -6,7 +6,15 @@ from mainapp.models.user_models import User
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'image', 'name']
+        fields = ['id', 'image', 'name', 'is_following']
+
+    is_following = serializers.SerializerMethodField()
+
+    def get_is_following(self, user):
+        request = self.context['request']
+        if not request.user:
+            return False
+        return request.user.following.filter(pk=user.pk).exists()
 
 
 class UserRetrieveSerializer(serializers.ModelSerializer):
