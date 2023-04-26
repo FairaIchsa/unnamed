@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import views, generics, permissions, status
 from rest_framework.response import Response
 from mainapp.models.event_models import Event
+from mainapp.models.user_models import User
 from .serializers import EventCreateUpdateSerializer, EventListSerializer, EventRetrieveSerializer
 from .permissions import IsHost, IsNotHost
 
@@ -87,4 +88,20 @@ class EventCancelParticipationAPIView(views.APIView):
     def post(self, request, pk):
         event = self.get_object()
         event.participants.remove(request.user)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class EventKickParticipantAPIView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated, IsHost]
+
+    def get_object(self):
+        obj = get_object_or_404(Event, pk=self.kwargs['pk'])
+        self.check_object_permissions(self.request, obj)
+        return obj
+
+    def post(self, request, pk):
+        pk_ = request.query_params['id']
+        user = get_object_or_404(User, pk=pk_)
+        event = self.get_object()
+        event.participants.remove(user)
         return Response(status=status.HTTP_204_NO_CONTENT)
