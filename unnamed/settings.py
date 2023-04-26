@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import rest_framework.settings
 
 from unnamed import secret_settings
 from pathlib import Path
@@ -137,7 +138,14 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+
+    'DATE_FORMAT': '%d-%m-%Y',
+    'DATE_INPUT_FORMATS': ['%d-%m-%Y', ] + rest_framework.settings.DEFAULTS['DATE_INPUT_FORMATS'],
+
+    'DATETIME_FORMAT': '%d-%m-%Y %H:%M',
+    'DATETIME_INPUT_FORMATS': ['%d-%m-%Y %H', '%d-%m-%Y %H:%M', '%d-%m-%Y %H:%M:%S'] +
+                              rest_framework.settings.DEFAULTS['DATETIME_INPUT_FORMATS']
 }
 
 CORS_ALLOW_CREDENTIALS = True
@@ -146,7 +154,6 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
 ]
-
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),
