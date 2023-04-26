@@ -72,8 +72,6 @@ class EventParticipateAPIView(views.APIView):
 
     def post(self, request, pk):
         event = self.get_object()
-        # if event.participants.filter(pk=request.user.pk).exists():
-        #     return Response({'detail': 'Already participating.'}, status=status.HTTP_400_BAD_REQUEST)
         event.participants.add(request.user)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -88,7 +86,5 @@ class EventCancelParticipationAPIView(views.APIView):
 
     def post(self, request, pk):
         event = self.get_object()
-        # if event.participants.filter(pk=request.user.pk).exists():
-        #     return Response({'detail': 'Already not participating.'}, status=status.HTTP_400_BAD_REQUEST)
         event.participants.remove(request.user)
         return Response(status=status.HTTP_204_NO_CONTENT)

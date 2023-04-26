@@ -30,8 +30,6 @@ class UserFollowAPIView(views.APIView):
 
     def post(self, request, pk):
         user = self.get_object()
-        # if self.request.user.following.filter(pk=pk).exists():
-        #     return Response({'detail': 'Already following.'}, status=status.HTTP_400_BAD_REQUEST)
         request.user.following.add(user)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -46,7 +44,5 @@ class UserUnfollowAPIView(views.APIView):
 
     def post(self, request, pk):
         user = self.get_object()
-        # if not self.request.user.following.filter(pk=pk).exists():
-        #     return Response({'detail': 'Already not following.'}, status=status.HTTP_400_BAD_REQUEST)
         request.user.following.remove(user)
         return Response(status=status.HTTP_204_NO_CONTENT)
