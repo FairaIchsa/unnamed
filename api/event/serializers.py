@@ -10,16 +10,19 @@ class EventCreateUpdateSerializer(serializers.ModelSerializer):
 
 
 class EventListSerializer(serializers.ModelSerializer):
+    from api.user.serializers import UserListSerializer as UserSerializer
+
     class Meta:
         depth = 1
         model = Event
-        fields = ['id', 'title', 'category', 'location', 'time', 'is_participating']
+        fields = ['id', 'title', 'host', 'category', 'location', 'time', 'is_participating']
 
+    host = UserSerializer()
     is_participating = serializers.SerializerMethodField()
 
     def get_is_participating(self, event):
         request = self.context['request']
-        if not request.user:
+        if not request.user.is_authenticated:
             return False
         return event.participants.filter(pk=request.user.pk).exists()
 
@@ -39,6 +42,6 @@ class EventRetrieveSerializer(serializers.ModelSerializer):
 
     def get_is_participating(self, event):
         request = self.context['request']
-        if not request.user:
+        if not request.user.is_authenticated:
             return False
         return event.participants.filter(pk=request.user.pk).exists()

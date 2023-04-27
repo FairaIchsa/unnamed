@@ -12,7 +12,7 @@ class UserListSerializer(serializers.ModelSerializer):
 
     def get_is_following(self, user):
         request = self.context['request']
-        if not request.user:
+        if not request.user.is_authenticated:
             return False
         return request.user.following.filter(pk=user.pk).exists()
 
@@ -39,6 +39,6 @@ class UserRetrieveSerializer(serializers.ModelSerializer):
 
     def get_is_following(self, user):
         request = self.context['request']
-        if not request.user:
+        if not request.user.is_authenticated:
             return False
         return request.user.following.filter(pk=user.pk).exists()
