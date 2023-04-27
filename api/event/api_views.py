@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import views, generics, permissions, status
+from rest_framework import views, generics, permissions, status, filters
 from rest_framework.response import Response
 from mainapp.models.event_models import Event
 from mainapp.models.user_models import User
@@ -25,13 +25,14 @@ class EventCreateAPIView(generics.CreateAPIView):
 
 class EventListAPIView(generics.ListAPIView):
     serializer_class = EventListSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', '=host__name']
 
     def get_queryset(self):
-        search = self.request.query_params['search'] if 'search' in self.request.query_params else ''
-        category = self.request.query_params['category'] if 'category' in self.request.query_params else None
-        queryset = Event.objects.filter(title__contains=search)
-        if category:
-            queryset.filter(category=category)
+        queryset = Event.objects.all()
+        category = self.request.query_params.get('category', None)
+        if category and category.isdigit():
+            queryset = queryset.filter(category=category)
         return queryset
 
 

@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import views, generics, permissions, status
+from rest_framework import views, generics, permissions, status, filters
 from rest_framework.response import Response
 from mainapp.models.user_models import User
 from .serializers import UserListSerializer, UserRetrieveSerializer
@@ -8,11 +8,9 @@ from .permissions import IsNotSelf
 
 class UserListAPIView(generics.ListAPIView):
     serializer_class = UserListSerializer
-
-    def get_queryset(self):
-        search = self.request.query_params['search'] if 'search' in self.request.query_params else ''
-        queryset = User.objects.filter(name__contains=search) | User.objects.filter(email__contains=search)
-        return queryset
+    queryset = User.objects.all()
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name', '=email', '=phone']
 
 
 class UserRetrieveAPIView(generics.RetrieveAPIView):
