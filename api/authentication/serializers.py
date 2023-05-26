@@ -35,7 +35,7 @@ class CookieTokenRefreshSerializer(TokenRefreshSerializer):
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'name', 'birthday', 'password']
+        fields = ['id', 'email', 'name', 'birthday', 'password', 'image', 'phone', 'gender']
         extra_kwargs = {'password': {'write_only': True},
                         'name': {'required': True},
                         'birthday': {'required': True}, }
