@@ -35,10 +35,12 @@ class CookieTokenRefreshSerializer(TokenRefreshSerializer):
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'name', 'birthday', 'password']
+        fields = ['id', 'email', 'name', 'birthday', 'password', 'image', 'phone', 'gender']
         extra_kwargs = {'password': {'write_only': True},
                         'name': {'required': True},
                         'birthday': {'required': True}, }
+
+    gender = CustomChoiceField(choices=User.genders)
 
     def create(self, validated_data):
         extra_fields = {'name': validated_data['name'], 'birthday': validated_data['birthday']}
