@@ -43,7 +43,10 @@ class UserCreateSerializer(serializers.ModelSerializer):
     gender = CustomChoiceField(choices=User.genders)
 
     def create(self, validated_data):
-        extra_fields = {'name': validated_data['name'], 'birthday': validated_data['birthday']}
+        extra_fields = {}
+        for field in ['name', 'birthday', 'image', 'phone', 'gender']:
+            if field in validated_data:
+                extra_fields[field] = validated_data[field]
         user = User.objects.create_user(validated_data['email'], validated_data['password'], **extra_fields)
         return user
 
