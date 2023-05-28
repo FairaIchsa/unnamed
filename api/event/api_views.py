@@ -19,8 +19,9 @@ class EventCreateAPIView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         instance = self.perform_create(serializer)
-        instance_serializer = EventRetrieveSerializer(instance)
-        return Response(instance_serializer.data)
+        headers = self.get_success_headers(serializer.data)
+        instance_serializer = EventRetrieveSerializer(instance, context={'request': request})
+        return Response(instance_serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
 class EventListAPIView(generics.ListAPIView):
