@@ -56,7 +56,7 @@ class EventUpdateAPIVIew(generics.UpdateAPIView):
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         instance = self.perform_update(serializer)
-        instance_serializer = EventRetrieveSerializer(instance)
+        instance_serializer = EventRetrieveSerializer(instance, context={'request': request})
         return Response(instance_serializer.data)
 
 
