@@ -5,7 +5,6 @@ from mainapp.models.user_models import User
 
 
 class CustomChoiceField(serializers.ChoiceField):
-
     def to_representation(self, obj):
         if obj == '' and self.allow_blank:
             return obj

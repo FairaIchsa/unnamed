@@ -3,7 +3,6 @@ from mainapp.models.event_models import Event
 
 
 class EventCreateUpdateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Event
         fields = ['id', 'title', 'category', 'location', 'description', 'time']
