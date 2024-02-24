@@ -1,7 +1,7 @@
 from django.urls import path
 from .api_views import (CookieTokenObtainPairView, CookieTokenRefreshView,
                         UserCreateAPIView, UserShortDataRetrieveAPIView, UserFullDataRetrieveAPIView,
-                        UserDataUpdateAPIVIew, UserPasswordUpdateAPIView)
+                        UserDataUpdateAPIVIew, UserPasswordUpdateAPIView, BlacklistRefreshView)
 
 
 app_name = 'auth'
@@ -14,4 +14,5 @@ urlpatterns = [
     path('get_full_user_data/', UserFullDataRetrieveAPIView.as_view(), name='get-full-user-data'),
     path('update_user_data/', UserDataUpdateAPIVIew.as_view(), name='update-user-data'),
     path('update_user_password/', UserPasswordUpdateAPIView.as_view(), name='update-user-password'),
+    path('logout/', BlacklistRefreshView.as_view(), name="logout"),
 ]

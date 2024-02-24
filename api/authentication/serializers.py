@@ -53,7 +53,7 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class UserFullDataRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'name', 'birthday', 'image', 'phone', 'gender']
+        fields = ['id', 'email', 'name', 'birthday', 'image', 'phone', 'gender', 'description']
 
     gender = serializers.CharField(source='get_gender_display')
 
@@ -61,7 +61,7 @@ class UserFullDataRetrieveSerializer(serializers.ModelSerializer):
 class UserDataUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['email', 'name', 'birthday', 'image', 'phone', 'gender']
+        fields = ['id', 'email', 'name', 'birthday', 'image', 'phone', 'gender', 'description']
 
     gender = CustomChoiceField(choices=User.genders)
 

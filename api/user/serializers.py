@@ -23,7 +23,7 @@ class UserRetrieveSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'image', 'name', 'gender', 'age', 'following', 'followed', 'host_of', 'participant_of',
-                  'is_following']
+                  'is_following', 'description']
 
     gender = serializers.CharField(source='get_gender_display')
     age = serializers.SerializerMethodField()

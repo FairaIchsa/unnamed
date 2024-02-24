@@ -22,6 +22,9 @@ class Event(models.Model):
     location = models.CharField(max_length=255)
     description = models.TextField(max_length=1023, blank=True, null=True, default=None)
     time = models.DateTimeField(default=timezone.now)
+    latitude = models.DecimalField(max_digits=15, decimal_places=12, null=True, default=None)
+    longitude = models.DecimalField(max_digits=15, decimal_places=12, null=True, default=None)
+
 
     def __str__(self):
         return self.title

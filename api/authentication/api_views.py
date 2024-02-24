@@ -2,6 +2,7 @@ from rest_framework import views, generics, permissions, status
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 from unnamed import settings
+from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import (CookieTokenRefreshSerializer, UserCreateSerializer, UserDataUpdateSerializer,
                           UserPasswordUpdateSerializer, UserFullDataRetrieveSerializer,
                           )
@@ -89,3 +90,10 @@ class UserPasswordUpdateAPIView(views.APIView):
         user.set_password(serializer.data.get("new_password"))
         user.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class BlacklistRefreshView(views.APIView):
+    def post(self, request):
+        token = RefreshToken(request.data.get('refresh'))
+        token.blacklist()
+        return Response("Success")

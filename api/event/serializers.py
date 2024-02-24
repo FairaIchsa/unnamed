@@ -5,7 +5,7 @@ from mainapp.models.event_models import Event
 class EventCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['id', 'title', 'category', 'location', 'description', 'time']
+        fields = ['id', 'title', 'category', 'location', 'description', 'time', 'longitude', 'latitude']
 
 
 class EventReadSerializer(serializers.ModelSerializer):
@@ -25,7 +25,7 @@ class EventListSerializer(EventReadSerializer):
     class Meta:
         depth = 1
         model = Event
-        fields = ['id', 'title', 'host', 'category', 'location', 'time', 'is_participating']
+        fields = ['id', 'title', 'host', 'category', 'location', 'time', 'is_participating', 'longitude', 'latitude']
 
 
 class EventRetrieveSerializer(EventReadSerializer):
@@ -35,6 +35,6 @@ class EventRetrieveSerializer(EventReadSerializer):
         depth = 1
         model = Event
         fields = ['id', 'title', 'category', 'host', 'participants', 'location', 'description', 'time',
-                  'is_participating']
+                  'is_participating', 'longitude', 'latitude']
 
     participants = UserListSerializer(many=True)
